@@ -1,0 +1,170 @@
+
+.intro,
+.startingImage {
+    flex: 1;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+    width: 50%;
+    /* max-width: 600px; */
+}
+
+.intro h1 {
+    font-size: 56px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.1;
+}
+
+.intro h2 {
+    font-size: 48px;
+    font-weight: bold;
+    color: rgb(25,118,210);
+    margin-bottom: 16px;
+
+}
+
+.intro p {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.loginButtons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.getStarted {
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #007bff, #0056d2);
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.getStarted:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+}
+
+.loginmain {
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 999px;
+    border: 2px solid #007bff;
+    background: white;
+    color: #007bff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.loginmain:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.startingImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: 50%;
+}
+
+.startingImage img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+
+
+/* body > div,
+.startingPageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+} */
+
+.startingPageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+    margin: 70px 200px;
+}
+
+@media (max-width: 1024px) {
+    .intro {
+        padding: 60px 40px;
+    }
+
+    .intro h1 {
+        font-size: 44px;
+    }
+
+    .intro h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    body > div,
+    .startingPageWrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro {
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    .loginButtons {
+        justify-content: center;
+    }
+
+    .startingImage {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro h1 {
+        font-size: 34px;
+    }
+
+    .intro h2 {
+        font-size: 18px;
+    }
+
+    .intro p {
+        font-size: 16px;
+    }
+
+    .getStarted,
+    .loginmain {
+        width: 100%;
+        max-width: 260px;
+    }
+}
