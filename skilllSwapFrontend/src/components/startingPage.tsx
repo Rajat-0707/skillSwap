@@ -3,7 +3,7 @@ import '../css/startingPage.css'
 function StartingPage() {
   return (
     <>
-    <div className="startingPageWrapper">
+    <div className="startingPageWrapper" id='start'>
     <div className="intro">
         <h1>Learn. Teach. Grow.</h1>
         <h2>Join our community to share and learn new skills.</h2>

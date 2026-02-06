@@ -1,6 +1,8 @@
 import StartingPage from './startingPage'
 import Navbar from './navbar'
 import About from './about'
+import ContactUs from './contactUs'
+import Footer from './footer.tsx'
 
 const Home = () => {
   return (
@@ -8,6 +10,8 @@ const Home = () => {
       <Navbar />
      <StartingPage /> 
         <About />
+        <ContactUs />
+        <Footer />
     </>
   )
 }

@@ -2,7 +2,7 @@ import '../css/about.css'
 
 const About = () => {
   return (
-    <div className="about-container">
+    <div className="about-container" id="about">
 
       <div className="about-hero">
         <h1 className="about-heading">About SkillSwap</h1>
@@ -62,12 +62,7 @@ const About = () => {
         </p>
       </div>
 
-      <div className="about-cta">
-        <h2> Learning is better when we grow together</h2>
-        <p>
-          On SkillSwap, everyone teaches. Everyone learns. Everyone levels up.
-        </p>
-      </div>
+      
 
     </div>
   )

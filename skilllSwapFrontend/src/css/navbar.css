@@ -4,16 +4,27 @@
     justify-content: space-between;
     align-items: center;
     min-height: 80px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid rgb(226, 223, 223);
     flex-wrap: wrap;
     gap: 10px;
     /* padding: 10px 20px; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.navbar{
+    background-color: white;
+
 }
 
 .logo{
     display: flex;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 }
 
 .navbuttons{

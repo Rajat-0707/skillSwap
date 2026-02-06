@@ -1,0 +1,122 @@
+.contactus-container {
+  padding: 140px 0;
+  background: #f9fafb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactus-container > h1 {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.contactt {
+  width: 55%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.contact-info,
+.contact-msg {
+  background: #ffffff;
+  padding: 45px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.contact-info h1,
+.contact-msg h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact-info p {
+  margin-bottom: 14px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.contact-msg {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-msg input,
+.contact-msg textarea {
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.contact-msg textarea {
+  border-radius: 20px;
+  resize: none;
+  min-height: 160px;
+}
+
+.contact-msg input:focus,
+.contact-msg textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.contact-msg button {
+  margin-top: 10px;
+  padding: 16px;
+  border: none;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-msg button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  transition: width 1s ease;
+  z-index: 0;
+}
+
+.contact-msg button:hover::before {
+  width: 100%;
+}
+
+.contact-msg button span {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-msg button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 900px) {
+  .contactt {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactt {
+    width: 92%;
+  }
+}
