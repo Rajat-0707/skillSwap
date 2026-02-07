@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import '../css/startingPage.css'
 
 function StartingPage() {
@@ -9,8 +10,8 @@ function StartingPage() {
         <h2>Join our community to share and learn new skills.</h2>
         <p>A modern space for developers to collaborate and grow together.</p>
         <div className="loginButtons">
-            <button className="getStarted">GET STARTED</button>
-            <button className="loginmain">LOGIN</button>
+            <Link to="/signup"><button className="getStarted">GET STARTED</button></Link>
+            <Link to="/login"><button className="loginmain">LOGIN</button></Link>
         </div>
     </div>
     <div className="startingImage">

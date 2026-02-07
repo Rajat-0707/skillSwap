@@ -54,11 +54,12 @@
 }
 
 .getStarted:hover {
-    transform: translateY(-2px);
+    
     box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
 }
 
 .loginmain {
+    position: relative;           
     padding: 14px 28px;
     font-size: 16px;
     font-weight: bold;
@@ -67,14 +68,31 @@
     background: white;
     color: #007bff;
     cursor: pointer;
-    transition: all 0.2s ease;
+    overflow: hidden;          
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+.loginmain::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0%;                 
+   width: 100%;
+    background: linear-gradient(135deg, #007bff, #0056d2);
+    transition: height 1s ease;
+    z-index: -1;             
+}
+
+.loginmain:hover::before {
+    height: 100%;
 }
 
 .loginmain:hover {
-    background: #007bff;
     color: white;
-    transform: translateY(-2px);
 }
+
 
 .startingImage {
     display: flex;
@@ -168,3 +186,4 @@
         max-width: 260px;
     }
 }
+

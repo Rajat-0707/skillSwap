@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../css/navbar.css'
 
 function navbar(){
@@ -18,20 +19,21 @@ function navbar(){
     return(
         <>
         <div className="navbar">
+            <Link to="/">
             <div className="logo" onClick={scrollToStart}>
                 <img src="/src/assets/logo.png" alt="SkillSwap Logo" />
                 <p>SkillSwap</p>
-            </div>
+            </div></Link>
             <div className="navbuttons">
-                <button className="about" onClick={scrollToAbout}>
+                <Link to="/"><button className="about" onClick={scrollToAbout}>
                     About
-                </button>
-                <button className="contact" onClick={scrollToContact}>
+                </button></Link>
+                <Link to="/"><button className="contact" onClick={scrollToContact}>
                     Contact Us
-                </button>
-                <button className="login" >
-                    <span>Login</span>
-                </button>
+                </button></Link>
+                 <Link to="/login"><button className="login" >
+                   <span>Login</span>
+                </button></Link>
             </div>
         </div>
         </>
