@@ -1,9 +1,36 @@
 import Navbar from "../components/navbar"
 import '../css/navbar.css'
 import '../css/login.css'
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import api from "../config/axios.js"
 
 const Login = () => {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  const handleLogin = async () => {
+    if(email === '' || password === '') {
+      alert('Please fill in all fields')
+      return
+    }
+
+    try {
+      const res = await api.post('/login', { email, password }
+      )
+      const token = res.data.token  
+
+      localStorage.setItem('token', token)
+      alert('Login successful!')
+      navigate('/')   
+    } catch(err: any) {
+      console.error('Login failed:', err)
+      alert(err.response.data.message || 'Login failed. Please try again.')
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -19,9 +46,9 @@ const Login = () => {
             </div>
             <div className="login-form">
 
-              <div className="inp"><input type="email" placeholder="Email" /></div>
-              <div className="inp">  <input type="password" placeholder="Password" /></div>
-              <div className="login-button"><button><span>Login</span></button></div>
+              <div className="inp"><input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/></div>
+              <div className="inp">  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/></div>
+              <div className="login-button"><button onClick={handleLogin}><span>Login</span></button></div>
               <div className="no-account">
                 <p>Don't have an account?</p>
                 <Link to="/signup"><a href="">sign-up</a></Link>
