@@ -14,29 +14,36 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [skillsOffered, setskillsOffered] = useState('')
   const [skillsWanted, setskillsWanted] = useState('')
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
   const handleSignup = async () => {
+    setLoading(true);
     if(password.length < 6) {
       alert('Password must be at least 6 characters long')
+      setLoading(false);
       return
     }
     if(email.length < 5 || !email.includes('@') || !email.includes('.')){
       alert('Please enter a valid email address')
+      setLoading(false);
       return
     }
     if(name.length < 3) {
       alert('Name must be at least 3 characters long')
+      setLoading(false);
       return
     }
 
     if(name === '' || email === '' || password === '' || confirmPassword === '') {
       alert('Please fill in all required fields')
+      setLoading(false);
       return
     }
 
     if(password !== confirmPassword) {
       alert('Passwords do not match')
+      setLoading(false);
       return
     }
 
@@ -44,11 +51,14 @@ const Signup = () => {
       await api.post('/signup', { name, email, password, skillsOffered, skillsWanted }
       );
       alert('Signup successful! Please login to continue.')
-      navigate('/login')   
+      navigate('/login')  
+      setLoading(false);
     } catch(err: any) {
       console.error('Signup failed:', err)
       alert(err.response.data.message || 'Signup failed. Please try again.')
+      setLoading(false);
     }
+    
   }
 
   return (
@@ -71,7 +81,7 @@ const Signup = () => {
               <div className="inp">  <input type="password" placeholder="Confirm Your Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/></div>
               <div className="inp">  <input type="text" placeholder="Enter the skill you want to offer(optional)" value={skillsOffered} onChange={(e) => setskillsOffered(e.target.value)} /></div>
               <div className="inp">  <input type="text" placeholder="Enter the skill you want to learn(optional)" value={skillsWanted} onChange={(e) => setskillsWanted(e.target.value)} /></div>
-              <div className="login-button"><button onClick={handleSignup}><span>Sign Up</span></button></div>
+              <div className="login-button"><button onClick={handleSignup}><span>{loading ? 'Creating Account...' : 'Sign Up'}</span></button></div>
               <div className="no-account">
                 <p>Already have an account?</p>
                 <Link to="/login"><a href="">sign-in</a></Link>

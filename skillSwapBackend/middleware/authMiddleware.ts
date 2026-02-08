@@ -16,18 +16,31 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
         return res.status(401).json({ message: "Authorization header missing" })
     }
 
-    const token = authHeader.split(" ")[1]
+    const parts = authHeader.split(" ")
 
-    if (!token) {
-        return res.status(401).json({ message: "Token missing" })
+    if (parts.length !== 2 || parts[0] !== "Bearer") {
+        return res.status(401).json({ message: "Invalid authorization format" })
     }
 
+    const token = parts[1]
+
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET!) as MyJwtPayload
+        const secret = process.env.JWT_SECRET
+
+        if (!secret) {
+            return res.status(500).json({ message: "Server configuration error" })
+        }
+
+        const decoded = jwt.verify(token, secret) as MyJwtPayload
+
+        if (!decoded.userId) {
+            return res.status(401).json({ message: "Invalid token payload" })
+        }
+
         req.userId = decoded.userId
         next()
     } catch {
-        return res.status(401).json({ message: "Invalid token" })
+        return res.status(401).json({ message: "Invalid or expired token" })
     }
 }
 

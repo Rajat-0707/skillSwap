@@ -8,10 +8,12 @@ import api from "../config/axios.js"
 const Login = () => {
 
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
   const handleLogin = async () => {
+    setLoading(true);
     if(email === '' || password === '') {
       alert('Please fill in all fields')
       return
@@ -25,9 +27,11 @@ const Login = () => {
       localStorage.setItem('token', token)
       alert('Login successful!')
       navigate('/')   
+      setLoading(false);
     } catch(err: any) {
       console.error('Login failed:', err)
       alert(err.response.data.message || 'Login failed. Please try again.')
+      setLoading(false);
     }
   }
 
@@ -48,7 +52,7 @@ const Login = () => {
 
               <div className="inp"><input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/></div>
               <div className="inp">  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/></div>
-              <div className="login-button"><button onClick={handleLogin}><span>Login</span></button></div>
+              <div className="login-button"><button onClick={handleLogin}><span>{loading ? 'logging in...' : 'Login'}</span></button></div>
               <div className="no-account">
                 <p>Don't have an account?</p>
                 <Link to="/signup"><a href="">sign-up</a></Link>
