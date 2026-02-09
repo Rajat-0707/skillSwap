@@ -1,4 +1,3 @@
-import Navbar from "../components/navbar"
 import '../css/navbar.css'
 import '../css/login.css'
 import { Link } from "react-router-dom"
@@ -63,7 +62,6 @@ const Signup = () => {
 
   return (
     <>
-      <Navbar />
       <div className="login-container">
         <div className="main-container">
           <div className="login-image">

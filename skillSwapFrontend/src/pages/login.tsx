@@ -1,4 +1,3 @@
-import Navbar from "../components/navbar"
 import '../css/navbar.css'
 import '../css/login.css'
 import { Link, useNavigate } from "react-router-dom"
@@ -26,7 +25,7 @@ const Login = () => {
 
       localStorage.setItem('token', token)
       alert('Login successful!')
-      navigate('/')   
+      navigate('/search')   
       setLoading(false);
     } catch(err: any) {
       console.error('Login failed:', err)
@@ -37,7 +36,6 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
       <div className="login-container">
         <div className="main-container">
           <div className="login-image">
