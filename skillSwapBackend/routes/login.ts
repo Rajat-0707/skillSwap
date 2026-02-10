@@ -1,22 +1,42 @@
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
-import express from "express"
-import User from "../model/User.js"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import express from "express";
+import User from "../model/User.js";
+import Teacher from "../model/teachers.js";
+import dotenv from "dotenv";
 
-const router = express.Router()
+dotenv.config();
+
+const router = express.Router();
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: "User not found. Create an account first" });
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    const teacher = await Teacher.findOne({ email });
+
+    if (!user && !teacher) {
+      return res.status(401).json({ message: "create an account first" });
     }
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
-    if (!passwordMatch) {
+
+    const account:any= user || teacher;
+
+    const ok = await bcrypt.compare(password, account.passwordHash);
+    if (!ok) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+    const secret:string=process.env.JWT_SECRET as string;
+    const token = jwt.sign(
+      { id: account._id },
+      secret,
+      { expiresIn: "1h" }
+    );
+
     res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: "Server error during login" });
+  }
 });
 
 export default router;

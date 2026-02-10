@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import express from "express"
 import User from "../model/User.js"
 import dotenv from "dotenv"
+import teacher from "../model/teachers.js"
 
 dotenv.config()
 
@@ -19,9 +20,15 @@ router.post("/signup", async (req, res) => {
         return res.status(400).json({ message: "User already exists" });
     }
     const passwordHash = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, passwordHash, skillsOffered, skillsWanted });
+    const newUser = new User({ name, email, passwordHash, skillsWanted });
+    const newTeacher = new teacher({ name, email, passwordHash, skillsOffered, skillsWanted });
+
     try {
+        if(skillsOffered.length === 0){
         await newUser.save();
+    } else {
+        await newTeacher.save();
+    }
     } catch (err) {
         return res.status(500).json({ message: "Error saving user in db" });
     }
