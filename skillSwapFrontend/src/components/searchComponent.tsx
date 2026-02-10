@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/search.css";
 import api from "../config/axios";
 
+
 interface User {
   _id: string;
   name: string;
@@ -10,17 +11,21 @@ interface User {
 }
 
 function Searchcomponent() {
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = async () => {
     try {
+      setLoading(true);
       const response = await api.get("/search", {
         params: { skill: searchQuery }
       });
       setUsers(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error searching users:", error);
+      setLoading(false);
     }
   };
 
@@ -50,7 +55,8 @@ function Searchcomponent() {
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <button onClick={handleSearch} disabled={!searchQuery.trim()}>
-            Search
+            <span>{loading ? "Searching..." : "Search"}</span>
+            
           </button>
         </div>
       </div>
@@ -63,17 +69,21 @@ function Searchcomponent() {
             <div className="user-card" key={user._id}>
               <h2>{user.name}</h2>
               <p>
-                <strong>Offers:</strong>{" "}
+                <strong>Skills Offered:</strong>{" "}
                 {user.skillsOffered.length
                   ? user.skillsOffered.join(", ")
                   : "Nothing listed"}
               </p>
               <p>
-                <strong>Wants:</strong>{" "}
+                <strong>{user.skillsWanted ? "" : "Wants to learn:"}</strong>{" "}
                 {user.skillsWanted.length
                   ? user.skillsWanted.join(", ")
                   : "Nothing listed"}
               </p>
+              <div className="user-buttons">
+                <button>view profile</button>
+                <button>Message</button></div>
+              
             </div>
           ))
         )}
