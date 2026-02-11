@@ -231,7 +231,7 @@
     background-image: linear-gradient(to right, #e0e0e0 0%, #e0e0e0 50%, #f7f7f7 50%, #f7f7f7 100%);
     background-size: 200% 100%;
     background-position: right bottom;
-    transition: background-position 0.35s ease;
+    transition: background-position 0.75s ease;
 }
 
 .user-buttons button:hover {

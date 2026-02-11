@@ -63,6 +63,7 @@ const Signup = () => {
   return (
     <>
       <div className="login-container">
+        <Link to="/"><div className="goback">← Back to Home</div></Link>
         <div className="main-container">
           <div className="login-image">
             <img src="/src/assets/login.png" alt="Login Image" />
