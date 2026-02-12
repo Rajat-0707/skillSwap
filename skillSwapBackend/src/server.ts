@@ -6,8 +6,10 @@ import loginRoutes from "../routes/login.js"
 import cors from "cors"
 import authMiddleware from "../middleware/authMiddleware.js"
 import User from "../model/User.js"
-import Teacher from "../model/teachers.js"
 import search from "../routes/search.js"
+import updateProfile from "../routes/updateProfile.js"
+import viewProfile from "../routes/viewProfile.js"
+
 
 dotenv.config()
 connectDB()
@@ -25,6 +27,8 @@ app.use(express.json())
 app.use(signupRoutes)
 app.use(loginRoutes)
 app.use(search)
+app.use(updateProfile)
+app.use(viewProfile)
 
 app.get("/", (_req, res) => {
   res.send("API running 🚀")

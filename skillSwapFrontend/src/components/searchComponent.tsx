@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import "../css/search.css";
 import api from "../config/axios";
-
+import { useNavigate } from "react-router-dom";
 
 interface User {
+  email: string;
   _id: string;
   name: string;
   skillsOffered: string[];
   skillsWanted: string[];
 }
 
+
 function Searchcomponent() {
+
+const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -68,6 +72,7 @@ function Searchcomponent() {
           users.map((user) => (
             <div className="user-card" key={user._id}>
               <h2>{user.name}</h2>
+              <p><span>email:</span> {user.email}</p>
               <p>
                 <strong>Skills Offered:</strong>{" "}
                 {user.skillsOffered.length
@@ -81,9 +86,9 @@ function Searchcomponent() {
                   : "Nothing listed"}
               </p>
               <div className="user-buttons">
-                <button>view profile</button>
+                <button onClick={() => navigate(`/viewProfile/${user._id}`)}>view profile</button>
                 <button>Message</button></div>
-              
+            
             </div>
           ))
         )}

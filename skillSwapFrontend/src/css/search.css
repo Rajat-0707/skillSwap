@@ -269,3 +269,7 @@
         padding: 6px;
     }
 }
+
+.user-card p span{
+    font-weight: bold;
+}

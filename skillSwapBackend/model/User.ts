@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     passwordHash: { type: String, required: true },
     skillsOffered: [{ type: String }],
     skillsWanted: [{ type: String }],
+    location: { type: String },
+    education: { type: String },
+    bio: { type: String },
+    role: { type: String, enum: ["teacher", "student"], default: "teacher" }
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

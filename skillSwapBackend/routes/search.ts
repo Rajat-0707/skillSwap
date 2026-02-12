@@ -1,5 +1,5 @@
 import express from "express";
-import Teacher from "../model/teachers.js";
+import User from "../model/User.js";
 
 const router = express.Router();
 
@@ -8,15 +8,19 @@ router.get("/search", async (req, res) => {
     const { skill } = req.query as { skill?: string };
 
     if (!skill) {
-      const users = await Teacher.aggregate([
+      const users = await User.aggregate([
+        { $match: { role: "teacher" } },  
         { $sample: { size: 8 } },
         { $project: { passwordHash: 0 } }
       ]);
+
       return res.json(users);
     }
 
-    const users = await Teacher.find({
-      $or: [
+    // If skill search
+    const users = await User.find({
+      role: "teacher",  
+       $or: [
         { skillsOffered: { $regex: skill, $options: "i" } },
         { skillsWanted: { $regex: skill, $options: "i" } }
       ]
@@ -25,6 +29,7 @@ router.get("/search", async (req, res) => {
       .limit(8);
 
     res.json(users);
+
   } catch (err) {
     res.status(500).json({ message: "Error fetching users" });
   }

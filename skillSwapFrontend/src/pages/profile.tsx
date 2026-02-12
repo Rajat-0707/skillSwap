@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Mail, Edit3, LogOut, BookOpen, Award, Briefcase, Check, X } from "lucide-react";
 import "../css/profile.css";
+import api from "../config/axios";
+
 interface DecodedToken {
   id: string;
   name?: string;
@@ -52,18 +54,48 @@ export default function Profile() {
     window.location.href = "/login";
   };
 
-  const handleSave = () => {
-    setUser({
-      ...user!,
-      name: form.name || "Not set",
-      skillsOffered: form.skillsOffered.split(",").map(s => s.trim()).filter(Boolean),
-      skillsWanted: form.skillsWanted.split(",").map(s => s.trim()).filter(Boolean),
-      location: form.location || "Not set",
-      education: form.education || "Not set",
-      bio: form.bio || "Not set"
-    });
+  const handleSave = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await api.post(
+      "/updateProfile",
+      {
+        name: form.name,
+        skillsOffered: form.skillsOffered
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean),
+        skillsWanted: form.skillsWanted
+          .split(",")
+          .map(s => s.trim())
+          .filter(Boolean),
+        location: form.location,
+        education: form.education,
+        bio: form.bio
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const newToken = response.data.token;
+    localStorage.setItem("token", newToken);
+
+    const decoded = jwtDecode<DecodedToken>(newToken);
+    setUser(decoded);
+
+    alert("Profile updated successfully!");
     setEditing(false);
-  };
+
+  } catch (err: any) {
+    console.error("Error updating profile:", err);
+    alert(err.response?.data?.message || "Failed to update profile");
+  }
+};
+
 
   if (!user) return <div className="profile-loading">Loading profile...</div>;
 
@@ -72,7 +104,6 @@ export default function Profile() {
       <div className="profile-cover"></div>
 
       <div className="profile-container">
-        {/* Sidebar */}
         <div className="profile-left">
           <div className="profile-avatar">
             {user.name ? user.name.charAt(0).toUpperCase() : "U"}
@@ -90,7 +121,6 @@ export default function Profile() {
           </button>
         </div>
 
-        {/* Main Content */}
         <div className="profile-right">
           <section>
             <h3>About</h3>
@@ -102,8 +132,8 @@ export default function Profile() {
             <div className="skills">
               {user.skillsOffered?.length
                 ? user.skillsOffered.map((s, i) => (
-                    <span key={i} className="skill offered">{s}</span>
-                  ))
+                  <span key={i} className="skill offered">{s}</span>
+                ))
                 : <span className="empty-tag">Not set</span>}
             </div>
           </section>
@@ -113,8 +143,8 @@ export default function Profile() {
             <div className="skills">
               {user.skillsWanted?.length
                 ? user.skillsWanted.map((s, i) => (
-                    <span key={i} className="skill wanted">{s}</span>
-                  ))
+                  <span key={i} className="skill wanted">{s}</span>
+                ))
                 : <span className="empty-tag">Not set</span>}
             </div>
           </section>
@@ -128,7 +158,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Edit Modal */}
       {editing && (
         <div className="modal">
           <div className="modal-content">
@@ -155,7 +184,7 @@ export default function Profile() {
             <div className="modal-actions">
               <button className="btn secondary" onClick={() => setEditing(false)}>Cancel</button>
               <button className="btn primary" onClick={handleSave}>
-                <Check size={16}/> Save
+                <Check size={16} /> Save
               </button>
             </div>
           </div>

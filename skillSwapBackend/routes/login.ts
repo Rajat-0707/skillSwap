@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import express from "express";
 import User from "../model/User.js";
-import Teacher from "../model/teachers.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -13,13 +12,12 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    const teacher = await Teacher.findOne({ email });
 
-    if (!user && !teacher) {
+    if (!user ) {
       return res.status(401).json({ message: "Create an account first" });
     }
 
-    const account: any = user || teacher;
+    const account: any = user;
 
     const ok = await bcrypt.compare(password, account.passwordHash);
     if (!ok) {
@@ -35,7 +33,7 @@ router.post("/login", async (req, res) => {
         email: account.email,
         skillsOffered: account.skillsOffered || [],
         skillsWanted: account.skillsWanted || [],
-        role: user ? "student" : "teacher"
+        role: account.role
       },
       secret,
       { expiresIn: "1h" }

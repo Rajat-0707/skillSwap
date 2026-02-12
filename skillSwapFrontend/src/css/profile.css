@@ -21,7 +21,6 @@
     color: var(--text-main);
   }
 
-  /* --- Layout --- */
   .profile-wrapper {
     min-height: 100vh;
     padding-bottom: 40px;
@@ -51,7 +50,6 @@
     position: relative;
   }
 
-  /* --- Left Sidebar (User Card) --- */
   .profile-left {
     background: var(--card-bg);
     border-radius: var(--radius);
@@ -94,7 +92,6 @@
     font-size: 0.95rem;
   }
 
-  /* --- Right Content (Skills & Actions) --- */
   .profile-right {
     margin-top: 30px;
     display: flex;
@@ -156,7 +153,6 @@
     gap: 15px;
   }
 
-  /* --- Buttons --- */
   .btn {
     padding: 12px 20px;
     border-radius: 10px;
@@ -301,7 +297,6 @@
     color: var(--primary);
   }
 
-  /* --- Responsive --- */
   @media (max-width: 768px) {
     .profile-container {
       grid-template-columns: 1fr;
@@ -326,6 +321,7 @@
     font-size: 1rem;
     box-sizing: border-box;
     transition: border-color 0.2s;
+    margin-bottom: 10px;
   }
   
   
