@@ -6,6 +6,8 @@ import SearchPage from './pages/searchPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './pages/profile'
 import ViewProfile from './pages/viewprofile';
+import ProtectedRoute from './routeGuards/protectedRoute'
+import PublicRoute from './routeGuards/publicRoute'
 
 function App() {
 
@@ -13,12 +15,12 @@ function App() {
     <>
      <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/viewProfile/:id" element={<ViewProfile />} />
+        <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/viewProfile/:id" element={<ProtectedRoute><ViewProfile /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
     </>

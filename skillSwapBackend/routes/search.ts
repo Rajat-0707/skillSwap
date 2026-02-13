@@ -1,15 +1,24 @@
 import express from "express";
+import mongoose from "mongoose";
 import User from "../model/User.js";
 
 const router = express.Router();
 
 router.get("/search", async (req, res) => {
   try {
-    const { skill } = req.query as { skill?: string };
+    const skill = req.query.skill as string | undefined;
+    const id = req.query.id as string;
+
+    const userId = new mongoose.Types.ObjectId(id);
 
     if (!skill) {
       const users = await User.aggregate([
-        { $match: { role: "teacher" } },  
+        {
+          $match: {
+            role: "teacher",
+            _id: { $ne: userId } 
+          }
+        },
         { $sample: { size: 8 } },
         { $project: { passwordHash: 0 } }
       ]);
@@ -17,10 +26,10 @@ router.get("/search", async (req, res) => {
       return res.json(users);
     }
 
-    // If skill search
     const users = await User.find({
-      role: "teacher",  
-       $or: [
+      role: "teacher",
+      _id: { $ne: userId }, 
+      $or: [
         { skillsOffered: { $regex: skill, $options: "i" } },
         { skillsWanted: { $regex: skill, $options: "i" } }
       ]
@@ -31,6 +40,7 @@ router.get("/search", async (req, res) => {
     res.json(users);
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Error fetching users" });
   }
 });

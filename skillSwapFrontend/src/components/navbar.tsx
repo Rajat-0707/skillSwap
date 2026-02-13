@@ -23,6 +23,11 @@ function Navbar() {
     document.getElementById("contactus")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToSearch = () => {
+    document.getElementById("search")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+
   const handleLogout = async () => {
     try {
       await api.post("/logout");
@@ -44,17 +49,27 @@ function Navbar() {
       <div className="navbuttons">
         {isLoggedIn && (
           <Link to="/search">
-            <button className="about">Search</button>
+            <button className="about" onClick={scrollToSearch}>Search</button>
           </Link>
         )}
 
-        <Link to="/">
+        {isLoggedIn ?(
+        <Link to="/search">
+          <button className="about" onClick={scrollToAbout}>About</button>
+        </Link>):(
+          <Link to="/">
           <button className="about" onClick={scrollToAbout}>About</button>
         </Link>
+        )}
 
-        <Link to="/">
+        {isLoggedIn ?  (
+           <Link to="/search">
           <button className="contact" onClick={scrollToContact}>Contact Us</button>
         </Link>
+        ):( <Link to="/">
+          <button className="contact" onClick={scrollToContact}>Contact Us</button>
+        </Link>)}
+       
 
         {isLoggedIn && (
           <Link to="/profile">
