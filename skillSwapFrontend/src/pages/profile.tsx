@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { Mail, Edit3, LogOut, BookOpen, Award, Briefcase, Check, X } from "lucide-react";
+import { Mail, Edit3, LogOut, Check } from "lucide-react";
 import "../css/profile.css";
 import api from "../config/axios";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 interface DecodedToken {
   id: string;
@@ -18,6 +21,7 @@ interface DecodedToken {
 }
 
 export default function Profile() {
+  const navigate = useNavigate()
   const [user, setUser] = useState<DecodedToken | null>(null);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({
@@ -55,52 +59,55 @@ export default function Profile() {
   };
 
   const handleSave = async () => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await api.post(
-      "/updateProfile",
-      {
-        name: form.name,
-        skillsOffered: form.skillsOffered
-          .split(",")
-          .map(s => s.trim())
-          .filter(Boolean),
-        skillsWanted: form.skillsWanted
-          .split(",")
-          .map(s => s.trim())
-          .filter(Boolean),
-        location: form.location,
-        education: form.education,
-        bio: form.bio
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await api.post(
+        "/updateProfile",
+        {
+          name: form.name,
+          skillsOffered: form.skillsOffered
+            .split(",")
+            .map(s => s.trim())
+            .filter(Boolean),
+          skillsWanted: form.skillsWanted
+            .split(",")
+            .map(s => s.trim())
+            .filter(Boolean),
+          location: form.location,
+          education: form.education,
+          bio: form.bio
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
+      );
 
-    const newToken = response.data.token;
-    localStorage.setItem("token", newToken);
+      const newToken = response.data.token;
+      localStorage.setItem("token", newToken);
 
-    const decoded = jwtDecode<DecodedToken>(newToken);
-    setUser(decoded);
+      const decoded = jwtDecode<DecodedToken>(newToken);
+      setUser(decoded);
 
-    alert("Profile updated successfully!");
-    setEditing(false);
+      alert("Profile updated successfully!");
+      setEditing(false);
 
-  } catch (err: any) {
-    console.error("Error updating profile:", err);
-    alert(err.response?.data?.message || "Failed to update profile");
-  }
-};
+    } catch (err: any) {
+      console.error("Error updating profile:", err);
+      alert(err.response?.data?.message || "Failed to update profile");
+    }
+  };
 
 
   if (!user) return <div className="profile-loading">Loading profile...</div>;
 
   return (
     <div className="profile-wrapper">
+      <Link to="/search"><div className="gobackk">
+        ← Back to Home
+      </div></Link>
       <div className="profile-cover"></div>
 
       <div className="profile-container">
@@ -154,6 +161,11 @@ export default function Profile() {
             {user.role === "teacher" && (
               <button className="btn highlight">Received Requests</button>
             )}
+            <button
+              className="btn secondary"
+              onClick={() => navigate(`/messages/${user.id}`)}
+            >view messages</button>
+
           </section>
         </div>
       </div>

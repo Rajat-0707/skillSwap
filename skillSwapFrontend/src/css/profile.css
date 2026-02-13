@@ -346,3 +346,24 @@
   font-size: 13px;
   color: #777;
 }
+
+.gobackk {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    position: absolute;
+    top: 40px;
+    left: 100px;
+    cursor: pointer;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid transparent;   
+    border-radius: 999px;
+}
+
+.gobackk:hover{
+  background-color: #818cf8;
+  border-color: #818cf8
+}

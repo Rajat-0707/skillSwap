@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import api from "../config/axios";
 import { Mail, MapPin, GraduationCap, Send } from "lucide-react";
 import "../css/profile.css";
+import { Link } from "react-router-dom";
+
 
 interface UserProfile {
   _id: string;
@@ -41,6 +43,9 @@ export default function ViewProfile() {
 
   return (
     <div className="profile-wrapper">
+      <Link to="/search"><div className="gobackk">
+        ← Back to Home
+      </div></Link>
       <div className="profile-cover"></div>
 
       <div className="profile-container">

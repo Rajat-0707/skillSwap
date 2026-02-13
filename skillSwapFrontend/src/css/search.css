@@ -273,3 +273,101 @@
 .user-card p span{
     font-weight: bold;
 }
+
+.msg-overlay-root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+}
+
+.msg-popup-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 32px;
+  width: 420px;
+  max-width: 90vw;
+  margin: 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+  animation: msgPopIn 0.25s ease-out;
+}
+
+@keyframes msgPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.msg-inner-wrap h1 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: #111827;
+}
+
+.msg-inner-wrap input,
+.msg-inner-wrap textarea {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  outline: none;
+  background: #fafafa;
+  transition: all 0.18s ease;
+}
+
+.msg-inner-wrap input:focus,
+.msg-inner-wrap textarea:focus {
+  border-color: #9ca3af;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.15);
+}
+
+.msg-inner-wrap textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.msg-action-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.msg-btn-cancel {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.msg-btn-cancel:hover {
+  background: #e5e7eb;
+}
+
+.msg-btn-send {
+  background: #111827;
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.msg-btn-send:hover {
+  background: #000000;
+}
+

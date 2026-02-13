@@ -1,8 +1,9 @@
 import User from "../model/User.js";
 import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
 const router=express.Router();
 
-router.get("/viewProfile/:id", async (req: any, res: any) => {
+router.get("/viewProfile/:id", async (req: any,authMiddleware:any, res: any) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id).select("-passwordHash");

@@ -31,6 +31,21 @@ function Searchcomponent() {
   const [users, setUsers] = useState<User[]>([]);
   const [cuser, setcUser] = useState<DecodedToken | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [message, setMessage] = useState(false);
+  const [recievername, setRecievername] = useState("");
+  const [sendername, setSendername] = useState("");
+
+
+  const handleMessage = async (user: any) => {
+    setMessage(true);
+    setRecievername(user.name);
+    // setSendername(cuser.name);
+
+
+
+  }
+
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -95,6 +110,36 @@ function Searchcomponent() {
         </div>
       </div>
 
+      {message && (
+  <div className="msg-overlay-root">
+    <div className="msg-popup-card">
+      <div className="msg-inner-wrap">
+        <h1>Send {recievername} a message:</h1>
+
+        <input
+          type="text"
+          placeholder={sendername}
+          disabled
+        />
+
+        <textarea placeholder="Enter your message..."></textarea>
+
+        <div className="msg-action-row">
+          <button
+            className="msg-btn-cancel"
+            onClick={() => setMessage(false)}
+          >
+            Cancel
+          </button>
+          <button className="msg-btn-send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
       <div className="search-results">
         {loading ? (
           <p className="no-results">Loading...</p>
@@ -121,7 +166,7 @@ function Searchcomponent() {
                 <button onClick={() => navigate(`/viewProfile/${user._id}`)}>
                   view profile
                 </button>
-                <button>Message</button>
+                <button onClick={() => handleMessage(user)} disabled={message}>Message</button>
               </div>
             </div>
           ))
