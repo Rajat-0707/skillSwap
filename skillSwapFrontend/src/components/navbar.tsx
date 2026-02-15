@@ -3,7 +3,6 @@ import "../css/navbar.css";
 import { useContext } from "react";
 import api from "../config/axios";
 import { AuthContext } from "../authcontext";
-import { Navigate} from "react-router-dom";
 
 function Navbar() {
   const auth = useContext(AuthContext);
@@ -41,7 +40,7 @@ function Navbar() {
     <div className="navbar">
       <Link to="/">
         <div className="logo" onClick={scrollToStart}>
-          <img src="/src/assets/logo.png" alt="SkillSwap Logo" />
+          <img src="/src/assets/logo.png"  />
           <p>SkillSwap</p>
         </div>
       </Link>

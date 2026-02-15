@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import api from "../config/axios.js";
 import { AuthContext } from "../authcontext";
+import Footer from "../components/footer";
 
 const Login = () => {
   const { setIsLoggedIn } = useContext(AuthContext)!;
@@ -37,6 +38,7 @@ const Login = () => {
   };
 
   return (
+    <>
     <div className="login-container">
       <Link to="/"><div className="goback">
         ← Back to Home
@@ -92,6 +94,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

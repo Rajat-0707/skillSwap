@@ -50,6 +50,83 @@
     position: relative;
   }
 
+  @media (max-width: 768px) {
+    .profile-container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 0 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-container {
+      padding: 0 10px;
+      gap: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  /* Requests Modal Styles */
+  .requests-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px 0;
+  }
+
+  .request-item {
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .request-info h4 {
+    margin: 0 0 8px 0;
+    color: var(--primary);
+  }
+
+  .request-info p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+
+  .status {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status.pending {
+    background: var(--warn-bg);
+    color: var(--warn-text);
+  }
+
+  .status.accepted {
+    background: var(--success-bg);
+    color: var(--success-text);
+  }
+
+  .status.rejected {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .request-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .request-actions button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
   .profile-left {
     background: var(--card-bg);
     border-radius: var(--radius);
@@ -61,6 +138,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .profile-left {
+      margin-top: -40px;
+      padding: 0 15px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-left {
+      margin-top: -30px;
+      padding: 0 10px 15px;
+    }
   }
 
   .profile-avatar {
@@ -78,6 +169,33 @@
     margin-top: -65px;
     margin-bottom: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+    }
+
+    .profile-right section,.profile-left{
+      width: 320px;
+    }
+    
+    .actions{
+      flex-direction: column;
+    }
+    .modal-actions .btn.primary, .modal-actions .btn.secondary{
+      width: 100%;
+    }
   }
 
   .profile-left h2 {
@@ -282,6 +400,8 @@
     display: flex;
     gap: 15px;
     margin-top: 10px;
+    justify-content: center;
+    align-items: center;
   }
 
   .modal-actions .btn {

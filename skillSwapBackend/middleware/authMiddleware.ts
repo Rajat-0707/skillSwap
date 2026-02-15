@@ -33,11 +33,11 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
 
         const decoded = jwt.verify(token, secret) as MyJwtPayload
 
-        if (!decoded.userId) {
+        if (!decoded.id) {
             return res.status(401).json({ message: "Invalid token payload" })
         }
 
-        req.userId = decoded.userId
+        req.userId = decoded.id
         next()
     } catch {
         return res.status(401).json({ message: "Invalid or expired token" })

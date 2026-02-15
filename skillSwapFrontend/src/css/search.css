@@ -81,12 +81,26 @@
 
     .search-bar {
         height: 56px;
-        padding-left: 18px;
+        padding-left: 1px;
     }
 
     .search-bar button {
         padding: 0 16px;
         font-size: 0.9rem;
+    }
+
+    .search{
+        padding: 170px 20px 40px;
+    }
+
+    .search-results {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 14px;
+    }
+
+    .user-card {
+        padding: 14px;
+        border-radius: 16px;
     }
 }
 

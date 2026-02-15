@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import api from "../config/axios";
 import { Mail, MapPin, GraduationCap, Send } from "lucide-react";
 import "../css/profile.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
 
 
 interface UserProfile {
@@ -20,9 +21,41 @@ interface UserProfile {
 
 export default function ViewProfile() {
   const { id } = useParams();
-   const [user, setUser] = useState<UserProfile | null>(null);
+  const navigate = useNavigate();
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+
+  const handleSendRequest = async () => {
+    if (!id || !user) return;
+    
+    try {
+      setSending(true);
+      
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      
+      const skillOffered = user.skillsWanted?.[0] || "General Skill";
+      const skillWanted = user.skillsOffered?.[0] || "General Skill";
+      
+      const response = await api.post("/send-request", {
+        recipientId: id,
+        skillOffered,
+        skillWanted
+      });
+      
+      if (response.status === 201) {
+        setSent(true);
+      }
+    } catch (error: any) {
+      console.error("Error sending request:", error);
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      }
+    } finally {
+      setSending(false);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -71,13 +104,13 @@ export default function ViewProfile() {
 
           <button
             className={`btn primary ${sent ? "disabled" : ""}`}
-            // onClick={handleSendRequest}
+            onClick={handleSendRequest}
             disabled={sending || sent}
           >
             <Send size={16} />
             {sent ? "Request Sent" : sending ? "Sending..." : "Send Request"}
           </button>
-          <button className="btn secondary">
+          <button className="btn secondary" onClick={() => navigate(`/message/${id}`)}>
             <Send size={16} />
             Message
           </button>

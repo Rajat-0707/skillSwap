@@ -8,6 +8,10 @@ import Profile from './pages/profile'
 import ViewProfile from './pages/viewprofile';
 import ProtectedRoute from './routeGuards/protectedRoute'
 import PublicRoute from './routeGuards/publicRoute'
+import Chat from './pages/messages'
+import MessagesList from './pages/MessagesList'
+
+
 
 function App() {
 
@@ -21,6 +25,10 @@ function App() {
         <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/viewProfile/:id" element={<ProtectedRoute><ViewProfile /></ProtectedRoute>} />
+        <Route path="/message/:id" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+        <Route path="/message" element={<ProtectedRoute><MessagesList /></ProtectedRoute>} />
+
+
       </Routes>
     </BrowserRouter>
     </>
