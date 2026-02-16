@@ -15,7 +15,7 @@ function StartingPage() {
         </div>
     </div>
     <div className="startingImage">
-        <img src="/src/assets/startingPageImage.png"  />
+        <img src="/startingPageImage.png"  />
     </div>
     </div>
     </>

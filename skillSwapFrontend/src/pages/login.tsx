@@ -44,7 +44,7 @@ const Login = () => {
       </div></Link>
       <div className="main-container">
         <div className="login-image">
-          <img src="/src/assets/login.png" alt="Login" />
+          <img src="/login.png" alt="Login" />
         </div>
 
         <div className="login-form-area">

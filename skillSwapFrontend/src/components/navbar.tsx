@@ -40,7 +40,7 @@ function Navbar() {
     <div className="navbar">
       <Link to="/">
         <div className="logo" onClick={scrollToStart}>
-          <img src="/src/assets/logo.png"  />
+          <img src="/logo.png"  />
           <p>SkillSwap</p>
         </div>
       </Link>
