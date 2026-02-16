@@ -1,32 +1,29 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000",
-  headers: {
-    "Content-Type": "application/json",
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache",
-    "Expires": "0"
-  }
+baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+withCredentials: true,
+headers: {
+"Content-Type": "application/json"
+}
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-  if (token) {
-    config.headers = config.headers ?? {};
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+if (token) {
+config.headers = config.headers ?? {};
+config.headers.Authorization = `Bearer ${token}`;
+}
 
-  // Prevent caching for GET requests
-  if (config.method === 'get' && config.headers) {
-    const h = config.headers as Record<string, string>;
-    h['Cache-Control'] = 'no-cache, no-store, must-revalidate';
-    h['Pragma'] = 'no-cache';
-    h['Expires'] = '0';
-  }
+if (config.method === "get" && config.headers) {
+const h = config.headers as Record<string, string>;
+h["Cache-Control"] = "no-cache, no-store, must-revalidate";
+h["Pragma"] = "no-cache";
+h["Expires"] = "0";
+}
 
-  return config;
+return config;
 });
 
 export default api;
