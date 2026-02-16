@@ -55,7 +55,7 @@
 
 .login-image{
 
-    background-image: url('../assets/login.jpg');
+    background-image: url('/login.png');
     background-size: cover;
     background-position: center;
     border-top-left-radius: 16px;
