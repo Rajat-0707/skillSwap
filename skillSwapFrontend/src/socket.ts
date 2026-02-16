@@ -1,5 +1,5 @@
 import {io,Socket} from "socket.io-client";
-const URL="http://localhost:5000";
+const URL="https://skillswap-8w8w.onrender.com";
 
 export const socket:Socket=io(URL,{
     autoConnect:false,
