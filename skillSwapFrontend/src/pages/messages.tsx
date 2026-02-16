@@ -5,7 +5,6 @@ import { socket } from "../socket";
 import { jwtDecode } from "jwt-decode";
 import { ArrowLeft } from "lucide-react";
 import "../css/message.css";
-import Footer from "../components/footer";
 
 interface JwtPayload {
   id: string;

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import api from "../config/axios.js"
 import { useNavigate } from "react-router-dom"
-import Footer from "../components/footer"
 
 const Signup = () => {
 

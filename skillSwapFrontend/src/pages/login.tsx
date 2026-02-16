@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import api from "../config/axios.js";
 import { AuthContext } from "../authcontext";
-import Footer from "../components/footer";
 
 const Login = () => {
   const { setIsLoggedIn } = useContext(AuthContext)!;

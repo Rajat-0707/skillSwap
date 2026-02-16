@@ -4,7 +4,6 @@ import api from "../config/axios"
 import { jwtDecode } from "jwt-decode"
 import { RefreshCw, ArrowLeft } from "lucide-react"
 import "../css/messagesList.css"
-import Footer from "../components/footer"
 
 interface JwtPayload {
   id: string;

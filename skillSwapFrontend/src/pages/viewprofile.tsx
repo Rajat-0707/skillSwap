@@ -4,7 +4,6 @@ import api from "../config/axios";
 import { Mail, MapPin, GraduationCap, Send } from "lucide-react";
 import "../css/profile.css";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../components/footer";
 
 
 interface UserProfile {
