@@ -34,7 +34,7 @@ const app = express()
 const PORT = process.env.PORT || 5000
 
 app.use(cors({
-  origin: "https://skill-swap-six-phi.vercel.app/",
+  origin: "https://skill-swap-orpin-chi.vercel.app/",
   credentials: true
 }))
 
@@ -75,7 +75,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: "https://skill-swap-six-phi.vercel.app/",
+    origin: "https://skill-swap-orpin-chi.vercel.app/",
     methods: ["GET", "POST"],
     credentials: true
   }
