@@ -25,6 +25,52 @@ interface DecodedToken {
   exp: number;
 }
 
+const SKILL_ALIASES: Record<string, string[]> = {
+  javascript: ["js", "javascript", "node", "nodejs", "express", "expressjs"],
+  typescript: ["ts", "typescript"],
+  python: ["python", "py", "django", "flask", "fastapi"],
+  java: ["java", "spring", "springboot"],
+  cpp: ["cpp", "c++"],
+  c: ["c"],
+  csharp: ["csharp", "c#", ".net", "dotnet", "asp.net"],
+  go: ["go", "golang"],
+  rust: ["rust"],
+  kotlin: ["kotlin"],
+  swift: ["swift", "ios"],
+  react: ["react", "reactjs", "next", "nextjs"],
+  angular: ["angular"],
+  vue: ["vue", "vuejs"],
+  html: ["html", "html5"],
+  css: ["css", "css3", "sass", "scss", "tailwind", "bootstrap"],
+  mongodb: ["mongodb", "mongo"],
+  mysql: ["mysql"],
+  postgresql: ["postgres", "postgresql"],
+  redis: ["redis"],
+  firebase: ["firebase"],
+  aws: ["aws", "amazon web services"],
+  azure: ["azure"],
+  gcp: ["gcp", "google cloud"],
+  docker: ["docker", "container"],
+  kubernetes: ["kubernetes", "k8s"],
+  linux: ["linux", "ubuntu"],
+  git: ["git", "github", "gitlab"],
+  devops: ["devops", "ci/cd", "jenkins"],
+  machinelearning: ["machine learning", "ml"],
+  deeplearning: ["deep learning", "dl"],
+  ai: ["ai", "artificial intelligence"],
+  nlp: ["nlp", "natural language processing"],
+  computervision: ["computer vision", "cv"],
+  dataanalysis: ["data analysis", "pandas", "numpy"],
+  powerbi: ["powerbi", "power bi"],
+  tableau: ["tableau"],
+  cybersecurity: ["cybersecurity", "security", "infosec"],
+  penetrationtesting: ["penetration testing", "pentest"],
+  networking: ["networking", "tcp/ip"],
+  blockchain: ["blockchain", "web3", "solidity"],
+  testing: ["testing", "jest", "mocha", "cypress", "selenium"],
+  uiux: ["ui", "ux", "figma", "design"],
+};
+
 function Searchcomponent() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -43,6 +89,44 @@ function Searchcomponent() {
       console.error("Invalid token");
     }
   }, []);
+
+  const normalizeSkill = (skill: string) => {
+    const lower = skill.toLowerCase().trim();
+    for (const key in SKILL_ALIASES) {
+      if (SKILL_ALIASES[key].includes(lower)) return key;
+    }
+    return lower;
+  };
+
+  const getRecommendedUsers = () => {
+    if (!searchQuery.trim()) return users;
+
+    const normalizedQuery = normalizeSkill(searchQuery);
+
+    const scoredUsers = users.map((user) => {
+      let score = 0;
+
+      const offeredNormalized = user.skillsOffered.map(normalizeSkill);
+
+      if (offeredNormalized.includes(normalizedQuery)) {
+        score += 5;
+      }
+
+      if (
+        cuser?.skillsWanted?.some((wanted) =>
+          offeredNormalized.includes(normalizeSkill(wanted))
+        )
+      ) {
+        score += 3;
+      }
+
+      return { user, score };
+    });
+
+    return scoredUsers
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.user);
+  };
 
   useEffect(() => {
     if (!cuser?.id) return;
@@ -101,7 +185,7 @@ function Searchcomponent() {
         ) : users.length === 0 ? (
           <p className="no-results">No users found</p>
         ) : (
-          users.map((user) => (
+          getRecommendedUsers().map((user) => (
             <div className="user-card" key={user._id}>
               <h2>{user.name}</h2>
               <p><span>email:</span> {user.email}</p>
