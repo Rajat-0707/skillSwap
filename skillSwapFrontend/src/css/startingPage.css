@@ -156,7 +156,6 @@
     .intro {
         align-items: center;
         padding: 40px 20px;
-        margin-top:120px;
     }
 
     .loginButtons {
@@ -173,6 +172,9 @@
     .intro h1 {
         font-size: 34px;
     }
+
+    .intro h1,h2,p{
+        width:400px;}
 
     .intro h2 {
         font-size: 18px;
