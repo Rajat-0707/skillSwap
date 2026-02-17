@@ -140,7 +140,7 @@ export default function Chat() {
         </button>
         <Link to={`/viewProfile/${receiverId}`} className="profileLink">
   <h2 className="chatHeaderTitle">{receiverName}</h2>
-  <span className="hoverText">View profile</span>
+  <span className="hoverText">View {receiverName}'s profile</span>
 </Link>
 
         

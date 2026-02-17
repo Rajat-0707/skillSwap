@@ -116,17 +116,15 @@
     margin: 70px 200px;
 }
 
-/* ---------------- RESPONSIVE FIXES ---------------- */
 
 @media (max-width: 1200px) {
     .startingPageWrapper {
-        margin: 60px 80px;   /* prevent horizontal overflow */
-    }
+        margin: 60px 80px;      }
 }
 
 @media (max-width: 1024px) {
     .startingPageWrapper {
-        flex-direction: column;   /* stack layout */
+        flex-direction: column;   
         margin: 40px;
     }
 
@@ -197,7 +195,6 @@
     }
 }
 
-/* Logo */
 
 .logo p {
     font-weight: bolder;
