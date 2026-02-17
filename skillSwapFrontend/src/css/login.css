@@ -25,15 +25,16 @@
   }
 
   .main-container
-  {
+{
+    position: relative; 
     border: 1px solid black;
     display: flex;
     border-radius: 50px;
     padding: 60px;
     max-width: 90vw;
     margin:20px 100px;
-    /* max-height: 90vh; */
-  }
+}
+
 
   @media (max-width: 768px) {
     .main-container {
@@ -48,7 +49,6 @@
       border-radius: 20px;
       flex-direction: column;
       margin: 0px;
-      position: relative;
     }
 
     .goback{
