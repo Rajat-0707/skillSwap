@@ -1,5 +1,5 @@
 .inboxWrapper {
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
   padding: 20px;
 }
@@ -31,7 +31,7 @@
 .inbox-header-top {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 150px;
 }
 
 .inbox-back-link {

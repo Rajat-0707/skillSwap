@@ -105,12 +105,9 @@ function Searchcomponent() {
 
     const scoredUsers = users.map((user) => {
       let score = 0;
-
       const offeredNormalized = user.skillsOffered.map(normalizeSkill);
 
-      if (offeredNormalized.includes(normalizedQuery)) {
-        score += 5;
-      }
+      if (offeredNormalized.includes(normalizedQuery)) score += 5;
 
       if (
         cuser?.skillsWanted?.some((wanted) =>
@@ -124,9 +121,12 @@ function Searchcomponent() {
     });
 
     return scoredUsers
+      .filter((item) => item.score > 0)
       .sort((a, b) => b.score - a.score)
       .map((item) => item.user);
   };
+
+  const recommendedUsers = getRecommendedUsers();
 
   useEffect(() => {
     if (!cuser?.id) return;
@@ -144,6 +144,11 @@ function Searchcomponent() {
 
     fetchUsers();
   }, [cuser]);
+
+  useEffect(() => {
+    if (!searchQuery.trim()) return;
+    handleSearch();
+  }, [searchQuery]);
 
   const handleSearch = async () => {
     if (!cuser?.id) return;
@@ -182,10 +187,10 @@ function Searchcomponent() {
       <div className="search-results">
         {loading ? (
           <p className="no-results">Loading...</p>
-        ) : users.length === 0 ? (
+        ) : recommendedUsers.length === 0 ? (
           <p className="no-results">No users found</p>
         ) : (
-          getRecommendedUsers().map((user) => (
+          recommendedUsers.map((user) => (
             <div className="user-card" key={user._id}>
               <h2>{user.name}</h2>
               <p><span>email:</span> {user.email}</p>

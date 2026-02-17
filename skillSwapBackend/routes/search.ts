@@ -30,8 +30,7 @@ router.get("/search", async (req, res) => {
       role: "teacher",
       _id: { $ne: userId }, 
       $or: [
-        { skillsOffered: { $regex: skill, $options: "i" } },
-        { skillsWanted: { $regex: skill, $options: "i" } }
+        { skillsOffered: { $regex: skill, $options: "i" } }
       ]
     })
       .select("-passwordHash")

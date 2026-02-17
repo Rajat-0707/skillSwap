@@ -130,7 +130,7 @@ export default function Profile() {
     try {
       await api.patch(`/request/${requestId}/respond`, { status });
       alert(`Request ${status} successfully!`);
-      fetchReceivedRequests(); // Refresh the list
+      fetchReceivedRequests(); 
     } catch (error: any) {
       console.error("Error responding to request:", error);
       alert(error.response?.data?.message || "Failed to respond to request");
@@ -154,8 +154,8 @@ export default function Profile() {
           </div>
           <h2>{user.name || "Not set"}</h2>
           <p className="info-line"><Mail size={14} /> {user.email || "Not set"}</p>
-          <p className="info-line">📍 {user.location || "Not set"}</p>
-          <p className="info-line">🎓 {user.education || "Not set"}</p>
+          <p className="info-line">Location: {user.location || "Not set"}</p>
+          <p className="info-line">Education: {user.education || "Not set"}</p>
 
           <button className="btn primary" onClick={() => setEditing(true)}>
             <Edit3 size={16} /> Edit Profile

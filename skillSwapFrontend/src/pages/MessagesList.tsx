@@ -31,7 +31,6 @@ export default function MessagesList() {
     }
     
     try {
-      // Add timestamp to prevent caching
       const timestamp = Date.now()
       const res = await api.get(`/conversations?t=${timestamp}`)
       setChats(res.data)
