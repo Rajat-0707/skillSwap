@@ -55,7 +55,7 @@
     align-items: stretch;
   }
   .inbox-header-top {
-    justify-content: space-between;
+    gap: 50px;
   }
 }
 
