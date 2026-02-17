@@ -87,6 +87,9 @@
     width: 100%;
     height: auto;
   }
+  .goback{
+    padding: 6px;
+  }
 }
 
 .or p{
