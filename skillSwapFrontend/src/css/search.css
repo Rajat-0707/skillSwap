@@ -385,3 +385,18 @@
   background: #000000;
 }
 
+.suggestions {
+  background: white;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #f2f2f2;
+}

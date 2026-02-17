@@ -77,6 +77,7 @@ function Searchcomponent() {
   const [users, setUsers] = useState<User[]>([]);
   const [cuser, setcUser] = useState<DecodedToken | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -98,35 +99,28 @@ function Searchcomponent() {
     return lower;
   };
 
-  const getRecommendedUsers = () => {
-    if (!searchQuery.trim()) return users;
-
-    const normalizedQuery = normalizeSkill(searchQuery);
-
-    const scoredUsers = users.map((user) => {
-      let score = 0;
-      const offeredNormalized = user.skillsOffered.map(normalizeSkill);
-
-      if (offeredNormalized.includes(normalizedQuery)) score += 5;
-
-      if (
-        cuser?.skillsWanted?.some((wanted) =>
-          offeredNormalized.includes(normalizeSkill(wanted))
-        )
-      ) {
-        score += 3;
-      }
-
-      return { user, score };
+  const getAllSkills = () => {
+    const skillSet = new Set<string>();
+    users.forEach((u) => {
+      u.skillsOffered.forEach((s) => skillSet.add(normalizeSkill(s)));
     });
-
-    return scoredUsers
-      .filter((item) => item.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map((item) => item.user);
+    return Array.from(skillSet);
   };
 
-  const recommendedUsers = getRecommendedUsers();
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+
+    const matches = getAllSkills()
+      .filter((skill) => skill.includes(query))
+      .slice(0, 6);
+
+    setSuggestions(matches);
+  }, [searchQuery, users]);
 
   useEffect(() => {
     if (!cuser?.id) return;
@@ -145,11 +139,6 @@ function Searchcomponent() {
     fetchUsers();
   }, [cuser]);
 
-  useEffect(() => {
-    if (!searchQuery.trim()) return;
-    handleSearch();
-  }, [searchQuery]);
-
   const handleSearch = async () => {
     if (!cuser?.id) return;
 
@@ -159,6 +148,7 @@ function Searchcomponent() {
         params: { skill: searchQuery, id: cuser.id }
       });
       setUsers(response.data);
+      setSuggestions([]);
     } catch (error) {
       console.error("Error searching users:", error);
     } finally {
@@ -182,15 +172,33 @@ function Searchcomponent() {
             <span>{loading ? "Searching..." : "Search"}</span>
           </button>
         </div>
+
+        {suggestions.length > 0 && (
+          <div className="suggestions">
+            {suggestions.map((s, i) => (
+              <div
+                key={i}
+                className="suggestion-item"
+                onClick={() => {
+                  setSearchQuery(s);
+                  setSuggestions([]);
+                  handleSearch();
+                }}
+              >
+                {s}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="search-results">
         {loading ? (
           <p className="no-results">Loading...</p>
-        ) : recommendedUsers.length === 0 ? (
+        ) : users.length === 0 ? (
           <p className="no-results">No users found</p>
         ) : (
-          recommendedUsers.map((user) => (
+          users.map((user) => (
             <div className="user-card" key={user._id}>
               <h2>{user.name}</h2>
               <p><span>email:</span> {user.email}</p>
