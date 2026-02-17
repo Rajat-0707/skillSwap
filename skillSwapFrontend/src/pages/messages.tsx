@@ -5,6 +5,8 @@ import { socket } from "../socket";
 import { jwtDecode } from "jwt-decode";
 import { ArrowLeft } from "lucide-react";
 import "../css/message.css";
+import { Link } from "react-router-dom";
+
 
 interface JwtPayload {
   id: string;
@@ -31,7 +33,6 @@ export default function Chat() {
   const [loading, setLoading] = useState(true);
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
-  // Update socket auth before connecting
   useEffect(() => {
     socket.auth = { token: localStorage.getItem("token") };
     if (!socket.connected) socket.connect();
@@ -137,7 +138,12 @@ export default function Chat() {
         >
           <ArrowLeft size={20} />
         </button>
-        <h2 className="chatHeaderTitle">{receiverName}</h2>
+        <Link to={`/viewProfile/${receiverId}`} className="profileLink">
+  <h2 className="chatHeaderTitle">{receiverName}</h2>
+  <span className="hoverText">View profile</span>
+</Link>
+
+        
       </header>
       <div className="chatBody" ref={chatBodyRef}>
         {messages.map((m) => (
