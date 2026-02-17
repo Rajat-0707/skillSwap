@@ -27,6 +27,11 @@
     cursor: pointer;
 }
 
+.logo img{
+    width:15px;
+    height:15px;
+}
+
 .navbuttons{
     display: flex;
     gap: 40px;
