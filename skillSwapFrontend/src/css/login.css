@@ -51,9 +51,10 @@
     margin-bottom: 1rem;
   }
 
-  .goback{
-    left: 10px;
-    top: 10px;
+  .goback {
+    top: 12px;
+    left: 12px;
+    padding: 12px;
   }
 }
 
@@ -243,21 +244,23 @@ input:hover{
   transition: border-bottom 0.8s ease;
 }
 
-/* ✅ goback */
 .goback {
+  position: fixed;         
+  top: 20px;
+  left: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  position: absolute;
-  top: 40px;
-  left: 100px;
+  z-index: 9999;
   cursor: pointer;
-  padding: 20px;
-  border: 1px solid transparent;   
+  padding: 16px;
+  border: 1px solid transparent;
   border-radius: 999px;
+  background: rgba(255,255,255,0.7); 
+  backdrop-filter: blur(6px);       
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
+
 
 .goback a{
   width: 100%;
