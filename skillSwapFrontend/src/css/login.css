@@ -1,3 +1,10 @@
+.page-scale {
+  transform: scale(0.75);
+  transform-origin: top center;
+  width: 133.33%; /* = 1 / 0.75 */
+}
+
+
 .login-container{
   display: flex;
   justify-content: center;

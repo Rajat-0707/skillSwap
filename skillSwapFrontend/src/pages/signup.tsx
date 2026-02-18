@@ -62,6 +62,7 @@ const Signup = () => {
 
   return (
     <>
+    <div className="page-scale">
       <div className="login-container">
         <Link to="/"><div className="goback">← Back to Home</div></Link>
         <div className="main-container">
@@ -91,7 +92,7 @@ const Signup = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div></div>
     </>
   )
 }

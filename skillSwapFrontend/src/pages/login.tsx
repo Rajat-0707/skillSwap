@@ -38,6 +38,9 @@ const Login = () => {
 
   return (
     <>
+    <div className="page-scale">
+
+
     <div className="login-container">
       <Link to="/"><div className="goback">
         ← Back to Home
@@ -92,6 +95,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
     </>
   );
