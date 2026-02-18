@@ -328,7 +328,6 @@
     color: white;
   }
 
-  /* --- Modal --- */
   .modal {
     position: fixed;
     top: 0;
@@ -484,6 +483,5 @@
 }
 
 .gobackk:hover{
-  background-color: #818cf8;
-  border-color: #818cf8
+  color: blue;
 }
