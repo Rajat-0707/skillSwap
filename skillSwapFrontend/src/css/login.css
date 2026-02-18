@@ -1,8 +1,10 @@
 .page-scale {
   transform: scale(0.75);
-  transform-origin: top center;
-  width: 133.33%; /* = 1 / 0.75 */
+  transform-origin: top left;   /* ⭐ important fix */
+  width: calc(100% / 0.75);     /* ⭐ prevents right gap */
+  height: calc(100% / 0.75);    /* ⭐ prevents bottom gap */
 }
+
 
 
 .login-container{
